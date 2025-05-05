@@ -10,6 +10,9 @@ class HomePage {
         this.login_icon_name = this.page.locator('#dropdownMenuLink20') // Get the login icon name
         this.sun_icon = this.page.locator('.icon-sun') // Get the dark mode icon
         this.moon_icon = this.page.locator('.icon-moon') // Get the moon icon
+        this.book_details_waiting = this.page.locator('.search-books-details'); // Wait for the book details to load
+        this.login_icon_waiting = this.page.locator('.icon-login'); // Wait for the login icon to load
+        this.moon_icon_waiting = this.page.locator('.icon-moon'); // Wait for the moon icon to load
     }
 
 
@@ -34,7 +37,7 @@ class HomePage {
    * @returns {array} list of the book names present in the search results
    */
     async getBookNameList() {
-        await this.page.waitForSelector('.search-books-details');
+        await this.book_details_waiting.waitFor({ state: 'visible'}); // Wait for the book details to load
 
         // Get the count of elements
         const count = await this.book_list.count();
@@ -60,7 +63,7 @@ class HomePage {
    * @returns {void}
    */
     async clickOnBook(book){
-        await this.page.waitForSelector('.search-books-details');
+        await this.book_details_waiting.waitFor({ state: 'visible'}); // Wait for the book details to load
         // Get the count of elements
         const count = await this.book_list.count();
 
@@ -84,7 +87,7 @@ class HomePage {
    * @returns {void}
    */
     async clickOnLoginButton() {
-        await this.page.waitForSelector('.icon-login');
+        await this.login_icon_waiting.waitFor({ state: 'visible'}); // Wait for the login icon to load
 
         await this.login_button.click(); // Click on the login button
     }
@@ -118,7 +121,7 @@ class HomePage {
    * @returns {boolean} visibility_icon - The visibility of the moon icon
    */
     async getDarkMode(){
-        await this.page.waitForSelector('.icon-moon');
+        await this.moon_icon_waiting.waitFor({ state: 'visible'}); // Wait for the moon icon to load
         const visibility_icon = await this.moon_icon.isVisible() // Check if the moon icon is visible   
 
         return visibility_icon // Return the visibility of the moon icon

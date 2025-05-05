@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js --require step_definitions/**/*.js",
-    "test_tags": "cucumber-js --require step_definitions/**/*.js --tags "
+    "test": "cucumber-js --require setup/hooks.js --require config/config.js --require step_definitions/**/*.js",
+    "test_tags": "cucumber-js --require setup/hooks.js --require config/config.js --require step_definitions/**/*.js --tags "
   },
   "keywords": [],
   "author": "",

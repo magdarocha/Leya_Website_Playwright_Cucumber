@@ -12,6 +12,7 @@ class BookPage {
         this.basket = this.page.locator('.icon-carrinho') // Get the basket icon
         this.garbage_icon = this.page.locator('.icon-garbage') // Get the garbage icon
         this.basket_message = this.page.locator('#atc-dropdown div').getByText('Carrinho vazio') // Get the basket message
+        this.sinopse_waiting = this.page.locator('._sinpose-address')
     }
 
 // Methods
@@ -35,7 +36,7 @@ class BookPage {
    */
     async getAuthorName(){
 
-        await this.page.waitForSelector('._sinpose-address');
+        await this.sinopse_waiting.waitFor({ state: 'visible'});// Wait for the synopsis to load
         const author = this.author.innerText();
     
         return author
@@ -49,7 +50,7 @@ class BookPage {
    */
     async getISBN(){
 
-    await this.page.waitForSelector('._sinpose-address');
+    await this.sinopse_waiting.waitFor({ state: 'visible'}); // Wait for the synopsis to load;
     
 
     const isbn_text = await this.details_list.getByText('ISBN:').innerText()
@@ -67,7 +68,7 @@ class BookPage {
    */
     async getPageNumber(){
 
-    await this.page.waitForSelector('._sinpose-address');
+    await this.sinopse_waiting.waitFor({ state: 'visible'}); // Wait for the synopsis to load;
 
     const pages = await this.details_list.getByText('Páginas:').innerText()
     const numbers = pages.split(': ')[1].trim()
@@ -83,7 +84,7 @@ class BookPage {
    */
     async getDimensions(){
 
-        await this.page.waitForSelector('._sinpose-address');
+        await this.sinopse_waiting.waitFor({ state: 'visible'}); // Wait for the synopsis to load;
 
         const dimensions = await this.details_list.getByText('Dimensões:').innerText()
         const dims = dimensions.split(': ')[1].trim()
@@ -101,7 +102,7 @@ class BookPage {
    */
     async addToBasket(){
     
-        await this.page.waitForSelector('._sinpose-address');
+        await this.sinopse_waiting.waitFor({ state: 'visible'}); // Wait for the synopsis to load;
         
         await this.buy_butons.first().click('a') // Click on the first buy button, it's a link (a)
 
